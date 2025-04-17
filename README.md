@@ -1,30 +1,60 @@
-# pcr
-Personal Context Repository (PCR)
-Overview
-The Personal Context Repository (PCR) is the central content hub for Jeremiah Agenyi’s journey to become a thought leader in AI for nonprofit technology. Housed within the pcr GitHub repository and synchronized with Google Drive, it stores writings, professional artifacts, research, and coaching materials. The repository supports Jeremiah’s AI strategy, outlined in Personal Context Repository/ContextDoc.md, by organizing content and technical assets under the JerryAgenyi-Workspace structure.
-Purpose
+# Personal Context Repository (PCR)
 
-Content Management: Archive articles, cover letters, screenshots, and research for thought leadership.
-Agent Support: Provide data for AI agents (e.g., Event Scout, Content Crafter) to automate tasks.
-Professional Identity Coaching: Store templates and client materials for Jeremiah’s coaching service.
-Tracking and Reflection: Maintain calendars, checklists, and DIY scalability notes.
+## Overview
+The Personal Context Repository (PCR) is the central content hub for Jeremiah Agenyi's journey to become a thought leader in AI for nonprofit technology. Housed within the pcr GitHub repository and synchronized with Google Drive, it stores writings, professional artifacts, research, and coaching materials. The repository supports Jeremiah's AI strategy, outlined in `ContentVault/ContextDoc.md`, by organizing content and technical assets under the JerryAgenyi-Workspace structure.
 
-Structure
+## Purpose
 
-Personal Context Repository/: Documents, writings, coaching materials, research, trackers.
-Agents/: n8n/Tines workflows, scripts, configurations.
-Calendar/: Timelines, checklists, reflections.
-README.md: This file.
+### Content Management
+- Archive articles, cover letters, screenshots, and research for thought leadership
+- Maintain professional artifacts and documentation
+- Organize research materials and findings
 
-Getting Started
+### Agent Support
+- Provide data for AI agents (e.g., Event Scout, Content Crafter) to automate tasks
+- Store agent configurations and workflows
+- Maintain agent documentation and standards
 
-Clone the repo: git clone https://github.com/your-username/pcr.git.
-Follow Setup-Instructions.md to create folders, setup sync, and execute the 12-week plan.
-Use AI tools (e.g., Claude AI) to automate file creation and n8n workflows.
+### Professional Identity Coaching
+- Store templates and client materials for Jeremiah's coaching service
+- Maintain coaching process guides and resources
+- Track client progress and materials
 
-Notes
+### Tracking and Reflection
+- Maintain calendars, checklists, and DIY scalability notes
+- Track project progress and milestones
+- Document reflections and learnings
 
-Privacy: The repo is private; sensitive content in ContextDoc.md is marked redacted for agent filtering.
-Sync: n8n automates Google Drive-GitHub synchronization.
-Contact: Jeremiah Agenyi (update with your contact if needed).
+## Structure
+
+```
+pcr/
+├── ContentVault/                    # Content hub for documents and artifacts
+├── Agents/                          # n8n/Tines workflows and configurations
+├── Calendar/                        # Timelines, checklists, and reflections
+└── README.md (this file)
+```
+
+## Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/pcr.git
+   ```
+
+2. Follow `Setup-Instructions.md` to:
+   - Create required folders
+   - Setup sync with Google Drive
+   - Execute the 12-week plan
+
+3. Use AI tools (e.g., Claude AI) to:
+   - Automate file creation
+   - Generate n8n workflows
+   - Assist with content organization
+
+## Notes
+
+- **Privacy**: The repository is private; sensitive content in `ContentVault/ContextDoc.md` is marked redacted for agent filtering
+- **Sync**: n8n automates Google Drive-GitHub synchronization
+- **Contact**: Jeremiah Agenyi (update with your contact if needed)
 

@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Security
+*.pem
+*.key
+*.cert
+*.crt
+*.env
+.env.local
+.env.*.local
+secrets.json
+credentials.json
+token.json
+*.log
+
+# Project specific
+ContentVault/Archives/*
+!ContentVault/Archives/.gitkeep
+Agents/n8n-workflows/*.json
+!Agents/n8n-workflows/sync-gdrive-github.json
+!Agents/n8n-workflows/event-scout.json
+!Agents/n8n-workflows/content-crafter.json
+
+# Optional: Exclude calendar file if not tracking in Git
+# Calendar/2025-Plan.ics
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~

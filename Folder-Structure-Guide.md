@@ -26,13 +26,13 @@ The root of the pcr repository contains core files that provide an overview and 
 - `requirements.txt`: Python dependencies for virtual environment (venv).
 - `ContextDoc.md`: Jeremiah's AI strategy document with redacted sections for private reflections (agents ignore redacted:.*).
 
-## JerryAgenyi-Workspace/
+## pcr/
 
 The top-level folder encapsulating all content and technical assets, ensuring a unified ecosystem.
 
 **Purpose**: Organize all project-related folders under a single hierarchy.
 
-### JerryAgenyi-Workspace/Personal Context Repository/
+### pcr/ContentVault/
 
 The main content hub for documents, writings, and professional artifacts.
 
@@ -90,7 +90,7 @@ The main content hub for documents, writings, and professional artifacts.
 - `WebProjects.xlsx`: URLs of past web projects
 - `SocialMediaMetrics.xlsx`: Engagement and growth metrics for social media
 
-### JerryAgenyi-Workspace/Agents/
+### pcr/Agents/
 
 Technical assets for AI agents and automations.
 
@@ -124,7 +124,7 @@ Technical assets for AI agents and automations.
 **Files**:
 - `security-standards.md`: Security Sentinel standards for API credential encryption
 
-### JerryAgenyi-Workspace/Calendar/
+### pcr/Calendar/
 
 Timelines, trackers, and reflection notes.
 
@@ -151,22 +151,22 @@ Timelines, trackers, and reflection notes.
 ## Guidelines for File Placement
 
 ### Shared Files
-- `Coverletter-CEPI.docx`, `Coverletter-WHO-AMR.docx`, `NCDC-Digital-Digest.pdf`: Place in `Personal Context Repository/Writings/Archives/` as they are past professional writings.
+- `Coverletter-CEPI.docx`, `Coverletter-WHO-AMR.docx`, `NCDC-Digital-Digest.pdf`: Place in `ContentVault/Writings/Archives/` as they are past professional writings.
 
 ### New Writings
-- Draft articles go in `Personal Context Repository/Writings/Drafts/`
-- Published articles go in `Personal Context Repository/Writings/Published/`
+- Draft articles go in `ContentVault/Writings/Drafts/`
+- Published articles go in `ContentVault/Writings/Published/`
 
 ### Screenshots
-- Website screenshots go in `Personal Context Repository/Screenshots/WebProjects/`
-- Graphic designs go in `Personal Context Repository/Screenshots/Graphics/`
+- Website screenshots go in `ContentVault/Screenshots/WebProjects/`
+- Graphic designs go in `ContentVault/Screenshots/Graphics/`
 
 ### Coaching Materials
-- Templates, client plans, and guides go in their respective subfolders under `Personal Context Repository/Professional Identity Coaching/`
+- Templates, client plans, and guides go in their respective subfolders under `ContentVault/Professional Identity Coaching/`
 
 ### Research
-- Policy documents go in `Personal Context Repository/Research/Policies/`
-- Nonprofit tech trends go in `Personal Context Repository/Research/NonprofitTech/`
+- Policy documents go in `ContentVault/Research/Policies/`
+- Nonprofit tech trends go in `ContentVault/Research/NonprofitTech/`
 
 ### Agent Workflows
 - n8n workflows go in `Agents/n8n-workflows/`
@@ -174,7 +174,8 @@ Timelines, trackers, and reflection notes.
 
 ## Notes
 
-- **Consistency**: Use `.md` for text files, `.xlsx` for trackers, and `.json` for workflows to simplify agent parsing.
-- **AI Context**: Agents can use this guide to navigate the structure (e.g., Portfolio Curator saves screenshots to `Screenshots/`, Content Crafter saves drafts to `Writings/Drafts/`).
-- **Scalability**: If Professional Identity Coaching grows, consider moving it to a sibling folder under `JerryAgenyi-Workspace/`.
+- **Google Drive Mapping**: In Google Drive, the structure is under pcr/ (e.g., pcr/ContentVault/). The n8n sync workflow maps pcr/ in Google Drive to the pcr/ root in GitHub.
+- **Consistency**: Use .md for text files, .xlsx for trackers, and .json for workflows to simplify agent parsing.
+- **AI Context**: Agents can use this guide to navigate the structure (e.g., Portfolio Curator saves screenshots to ContentVault/Screenshots/, Content Crafter saves drafts to ContentVault/Writings/Draft/).
+- **Scalability**: If Professional Identity Coaching grows, consider moving it to a sibling folder (e.g., ProfessionalIdentityCoaching/).
 

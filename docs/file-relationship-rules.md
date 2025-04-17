@@ -26,9 +26,9 @@ This document defines the relationships between project files and establishes ru
 
 | Primary File | Related Files | Integrity Rule |
 |--------------|---------------|----------------|
-| `Personal Context Repository/Writings/Published/*.md` | `Personal Context Repository/Research/NonprofitTech/*.md` | When publishing articles, ensure research references are accurate. |
-| `Personal Context Repository/Writings/Drafts/*.md` | `Personal Context Repository/Research/Policies/*.md` | When drafting articles, ensure policy references are current. |
-| `Personal Context Repository/Professional Identity Coaching/Templates/*` | `Personal Context Repository/Professional Identity Coaching/Guides/*` | When templates are updated, ensure guides reflect the changes. |
+| `ContentVault/Writings/Published/*.md` | `ContentVault/Research/NonprofitTech/*.md` | When publishing articles, ensure research references are accurate. |
+| `ContentVault/Writings/Drafts/*.md` | `ContentVault/Research/Policies/*.md` | When drafting articles, ensure policy references are current. |
+| `ContentVault/Professional Identity Coaching/Templates/*` | `ContentVault/Professional Identity Coaching/Guides/*` | When templates are updated, ensure guides reflect the changes. |
 
 ### Calendar and Tracking
 
@@ -49,7 +49,7 @@ This document defines the relationships between project files and establishes ru
 2. **Content Management**: When adding/updating content:
    - Place files in correct folders per `Folder-Structure-Guide.md`
    - Update relevant research documents if needed
-   - Update trackers in `Personal Context Repository/Trackers/`
+   - Update trackers in `ContentVault/Trackers/`
    - Update calendar if content is time-sensitive
 
 3. **Agent Development**: When updating agent configurations:
@@ -95,6 +95,12 @@ For each "yes" answer, identify the related files using this document and update
    - Maintain cross-references between documents
    - Follow the file relationship rules
 
+4. **Cursor Rules**
+   - Follow the synchronization guidelines in `@docs/cursor-rules.md`
+   - Use `@` prefix for document references
+   - Update all related documents when making changes
+   - Maintain bidirectional links between documents
+
 ## Maintaining This Document
 
 This document should be updated whenever:
@@ -103,5 +109,6 @@ This document should be updated whenever:
 2. Existing files are renamed or moved
 3. New relationships between files are identified
 4. New integrity rules are established
+5. Cursor rules are updated in `@docs/cursor-rules.md`
 
 By following these rules, we can ensure that our project remains consistent and well-documented as it evolves. 
