@@ -26,6 +26,16 @@ The root of the pcr repository contains core files that provide an overview and 
 - `requirements.txt`: Python dependencies for virtual environment (venv).
 - `ContextDoc.md`: Jeremiah's AI strategy document with redacted sections for private reflections (agents ignore redacted:.*).
 
+## docs/
+
+Documentation files for project rules and guidelines.
+
+**Purpose**: Store documentation that guides project contributors and AI agents.
+
+**Files**:
+- `cursor-rules.md`: Rules for file synchronization, documentation standards, and maintenance.
+- `file-relationship-rules.md`: Rules for maintaining relationships between files.
+
 ## pcr/
 
 The top-level folder encapsulating all content and technical assets, ensuring a unified ecosystem.
