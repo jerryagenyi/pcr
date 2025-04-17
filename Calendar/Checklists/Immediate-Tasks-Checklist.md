@@ -77,12 +77,17 @@ This checklist breaks down the first 4 weeks of the 12-week Short-Term plan (Pha
 - [ ] Brainstorm 2 article topics (e.g., "AI Policy for Nonprofits," "MCP Opportunities")
 - [ ] Save topics in ContentVault/Writings/Drafts/topics.md
 
-- [ ] Secure n8n setup (Security Sentinel prep)
-- [ ] Verify Agents/configs/security-standards.md includes API credential encryption
-- [ ] Test n8n API access with secure tokens
+- [ ] Implement Security Framework
+- [ ] Create key-rotation.json workflow in Agents/n8n-workflows/
+- [ ] Setup security-dashboard.json in Agents/configs/
+- [ ] Implement dependency scanning automation
+- [ ] Configure access pattern monitoring
+- [ ] Setup encryption key rotation schedule
+- [ ] Test incident response automation
+- [ ] Document security incident escalation procedures
 
 - [ ] Update ShortTerm-Checklist.md: Mark preparation tasks as complete
-- [ ] Commit changes: `git add . && git commit -m "Prepare for agent development" && git push`
+- [ ] Commit changes: `git add . && git commit -m "Prepare for agent development and implement security framework" && git push`
 
 ## Notes
 
