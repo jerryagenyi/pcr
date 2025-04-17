@@ -161,6 +161,23 @@ A super agent (Jerry's Core Companion) integrates specialized sub-agents, design
 - **GitHub**: Agent code, trackers, version control.
 - **VPS**: Hosts jerryagenyi.xyz and automations (16GB RAM supports local LLMs like Llama/Mistral for agent coordination; Claude AI for deep research).
 
+### Security and Compliance:
+- **Comprehensive Security Framework**:
+  - Automated security scanning and monitoring
+  - API key and credential management
+  - File permission controls
+  - Dependency vulnerability tracking
+- **GDPR Compliance**:
+  - Automated compliance monitoring
+  - Data privacy impact assessments
+  - Documentation and audit trails
+  - Data subject access request handling
+- **Regular Audits**:
+  - Quarterly security reviews
+  - Compliance gap analysis
+  - Remediation tracking
+  - Documentation updates
+
 ### LLM Usage:
 - **Local LLM**: Run Llama/Mistral via Ollama for lightweight tasks (e.g., note-taking, content generation).
 - **Paid LLM**: Use Claude AI for complex tasks (e.g., policy analysis, presentation design).
