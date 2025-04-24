@@ -93,6 +93,26 @@ The main content hub for documents, writings, and professional artifacts.
 - `NonprofitTech/`: Blogs, trends, and thought leader insights.
   - Example Files: `nonprofit-ai-trends-2025.md`
 
+##### Brand/
+**Purpose**: Store comprehensive brand documentation to ensure consistent presentation across all content and communications.
+
+**Files**:
+- `README.md`: Overview of brand documentation and relationships between documents
+- `brand-identity.md`: Core elements of the brand including purpose, mission, values, personality, and messaging
+- `user-personas.md`: Detailed profiles of primary audience segments
+- `content-strategy.md`: Strategic approach to content creation, distribution, and measurement
+- `brand-story.md`: Narrative that underpins the brand and connects with the audience
+- `content-templates.md`: Standardized structures for various content types
+- `brand-review-template.md`: Framework for quarterly brand reviews and evaluations
+
+**Subfolders**:
+- `visual-identity/`: Guidelines for visual brand elements
+  - `logo-guidelines.md`: Rules for consistent logo usage
+  - `color-typography.md`: Color palette and typography standards
+  - `logo-files/`: Repository for official logo files in various formats
+  - `color-swatches/`: Color palette files and swatches
+  - `fonts/`: Typography files and font assets
+
 ##### Trackers/
 **Purpose**: Log data for Portfolio Curator and Content Crafter agents.
 

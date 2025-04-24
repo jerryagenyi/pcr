@@ -29,6 +29,14 @@ This document defines the relationships between project files and establishes ru
 | `ContentVault/Writings/Published/*.md` | `ContentVault/Research/NonprofitTech/*.md` | When publishing articles, ensure research references are accurate. |
 | `ContentVault/Writings/Drafts/*.md` | `ContentVault/Research/Policies/*.md` | When drafting articles, ensure policy references are current. |
 | `ContentVault/Professional Identity Coaching/Templates/*` | `ContentVault/Professional Identity Coaching/Guides/*` | When templates are updated, ensure guides reflect the changes. |
+| `ContentVault/Writings/style-guide.md` | `ContentVault/Writings/Drafts/*.md`, `ContentVault/Writings/Published/*.md` | When creating or editing content, ensure it follows the style guide principles for clarity and accessibility. |
+| `ContentVault/Writings/style-guide.md` | `ContentVault/ContextDoc.md` | When updating the style guide, ensure it aligns with the guiding principles in ContextDoc.md. |
+| `ContentVault/Brand/brand-identity.md` | `ContentVault/Writings/style-guide.md` | When updating brand identity, ensure the style guide reflects any changes to brand voice or personality. |
+| `ContentVault/Brand/brand-identity.md` | `ContentVault/Brand/content-strategy.md` | When updating brand identity, ensure content strategy aligns with brand purpose and messaging. |
+| `ContentVault/Brand/user-personas.md` | `ContentVault/Brand/content-strategy.md` | When updating user personas, review content strategy to ensure it addresses the needs of all target audiences. |
+| `ContentVault/Brand/content-strategy.md` | `ContentVault/Brand/content-templates.md` | When updating content strategy, ensure templates support the strategic content pillars and types. |
+| `ContentVault/Brand/brand-story.md` | `ContentVault/Writings/Published/*.md` | When creating content, ensure it aligns with and reinforces the brand story narrative. |
+| `ContentVault/Brand/visual-identity/color-typography.md` | Website design files and templates | When updating visual identity, ensure all digital and print materials reflect the current standards. |
 
 ### Calendar and Tracking
 
@@ -111,4 +119,4 @@ This document should be updated whenever:
 4. New integrity rules are established
 5. Cursor rules are updated in `@docs/cursor-rules.md`
 
-By following these rules, we can ensure that our project remains consistent and well-documented as it evolves. 
+By following these rules, we can ensure that our project remains consistent and well-documented as it evolves.
