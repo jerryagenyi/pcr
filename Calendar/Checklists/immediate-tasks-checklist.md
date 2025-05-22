@@ -23,7 +23,7 @@ This checklist breaks down the first 4 weeks of the 12-week Short-Term plan (Pha
   - [ ] Coverletter-WHO-AMR.docx
   - [ ] NCDC-Digital-Digest.pdf
 - [ ] Confirm `Calendar/2025-Plan.ics` exists
-- [ ] Check `ShortTerm-Checklist.md` and `DIY-Reflection.md` in Calendar/
+- [ ] Check `short-term-checklist.md` and `DIY-Reflection.md` in Calendar/
 
 ### Environment Setup
 - [ ] Save updated `requirements.txt` to pcr root
@@ -74,7 +74,7 @@ This checklist breaks down the first 4 weeks of the 12-week Short-Term plan (Pha
 - [ ] Verify `Agents/configs/security-standards.md` includes API credential encryption
 
 ### Documentation
-- [ ] Update `ShortTerm-Checklist.md`
+- [ ] Update `short-term-checklist.md`
 - [ ] Commit changes:
   ```bash
   git add . && git commit -m "Setup Google Drive and n8n sync" && git push
@@ -92,10 +92,10 @@ This checklist breaks down the first 4 weeks of the 12-week Short-Term plan (Pha
 - [ ] Export to `Calendar/2025-Plan.ics`
 
 ### Comprehensive Testing
-- [ ] Modify `ContextDoc.md` in Google Drive (e.g., add a test line)
+- [ ] Modify `context-doc.md` in Google Drive (e.g., add a test line)
 - [ ] Run n8n workflow to sync to GitHub
 - [ ] Verify update in pcr repo
-- [ ] Modify `ContextDoc.md` in GitHub, sync to Google Drive
+- [ ] Modify `context-doc.md` in GitHub, sync to Google Drive
 - [ ] Test environment with a simple Python script
 - [ ] Verify all folder structures and file relationships
 
@@ -155,6 +155,9 @@ This checklist breaks down the first 4 weeks of the 12-week Short-Term plan (Pha
 - [ ] Configure access pattern monitoring
 - [ ] Setup encryption key rotation schedule
 - [ ] Document security incident escalation procedures
+- [ ] Install and configure CodeRabbit for AI-powered code reviews
+- [ ] Create `.github/coderabbit.yaml` configuration file
+- [ ] Document CodeRabbit integration in workflow documentation
 
 ### Compliance Framework Implementation
 - [ ] Setup automated GDPR compliance checks
@@ -164,7 +167,7 @@ This checklist breaks down the first 4 weeks of the 12-week Short-Term plan (Pha
 - [ ] Setup privacy impact assessment workflow
 
 ### Documentation
-- [ ] Update `ShortTerm-Checklist.md`
+- [ ] Update `short-term-checklist.md`
 - [ ] Commit changes:
   ```bash
   git add . && git commit -m "Implement advanced features, security, and compliance frameworks" && git push

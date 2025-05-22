@@ -8,11 +8,11 @@ This document defines the relationships between project files and establishes ru
 
 | Primary File | Related Files | Integrity Rule |
 |--------------|---------------|----------------|
-| `ContextDoc.md` | `Folder-Structure-Guide.md` | When strategy is updated, ensure folder structure aligns with new requirements. |
-| `ContextDoc.md` | `Calendar/2025-Plan.ics` | When strategy milestones change, update the calendar file accordingly. |
-| `ContextDoc.md` | `Calendar/Checklists/Immediate-Tasks.md` | When strategy changes, ensure tasks reflect new priorities. |
-| `ContextDoc.md` | `Calendar/Checklists/ShortTerm-Checklist.md` | When strategy changes, ensure short-term goals are updated. |
-| `Folder-Structure-Guide.md` | `README.md` | When folder structure changes, update README to reflect new organization. |
+| `ContentVault/context-doc.md` | `folder-structure-guide.md` | When strategy is updated, ensure folder structure aligns with new requirements. |
+| `ContentVault/context-doc.md` | `Calendar/2025-Plan.ics` | When strategy milestones change, update the calendar file accordingly. |
+| `ContentVault/context-doc.md` | `Calendar/Checklists/immediate-tasks-checklist.md` | When strategy changes, ensure tasks reflect new priorities. |
+| `ContentVault/context-doc.md` | `Calendar/Checklists/short-term-checklist.md` | When strategy changes, ensure short-term goals are updated. |
+| `folder-structure-guide.md` | `README.md` | When folder structure changes, update README to reflect new organization. |
 
 ### Agent Configuration
 
@@ -28,9 +28,9 @@ This document defines the relationships between project files and establishes ru
 |--------------|---------------|----------------|
 | `ContentVault/Writings/Published/*.md` | `ContentVault/Research/NonprofitTech/*.md` | When publishing articles, ensure research references are accurate. |
 | `ContentVault/Writings/Drafts/*.md` | `ContentVault/Research/Policies/*.md` | When drafting articles, ensure policy references are current. |
-| `ContentVault/Professional Identity Coaching/Templates/*` | `ContentVault/Professional Identity Coaching/Guides/*` | When templates are updated, ensure guides reflect the changes. |
+| `ContentVault/professional-identity-coaching/Templates/*` | `ContentVault/professional-identity-coaching/Guides/*` | When templates are updated, ensure guides reflect the changes. |
 | `ContentVault/Writings/style-guide.md` | `ContentVault/Writings/Drafts/*.md`, `ContentVault/Writings/Published/*.md` | When creating or editing content, ensure it follows the style guide principles for clarity and accessibility. |
-| `ContentVault/Writings/style-guide.md` | `ContentVault/ContextDoc.md` | When updating the style guide, ensure it aligns with the guiding principles in ContextDoc.md. |
+| `ContentVault/Writings/style-guide.md` | `ContentVault/context-doc.md` | When updating the style guide, ensure it aligns with the guiding principles in context-doc.md. |
 | `ContentVault/Brand/brand-identity.md` | `ContentVault/Writings/style-guide.md` | When updating brand identity, ensure the style guide reflects any changes to brand voice or personality. |
 | `ContentVault/Brand/brand-identity.md` | `ContentVault/Brand/content-strategy.md` | When updating brand identity, ensure content strategy aligns with brand purpose and messaging. |
 | `ContentVault/Brand/user-personas.md` | `ContentVault/Brand/content-strategy.md` | When updating user personas, review content strategy to ensure it addresses the needs of all target audiences. |
@@ -42,20 +42,20 @@ This document defines the relationships between project files and establishes ru
 
 | Primary File | Related Files | Integrity Rule |
 |--------------|---------------|----------------|
-| `Calendar/2025-Plan.ics` | `Calendar/Checklists/Immediate-Tasks.md` | When calendar events change, update relevant tasks. |
-| `Calendar/2025-Plan.ics` | `Calendar/Checklists/ShortTerm-Checklist.md` | When milestones change, update checklist accordingly. |
-| `Calendar/Reflections/DIY-Reflection.md` | `ContextDoc.md` | When reflection insights are significant, update strategy document. |
+| `Calendar/2025-Plan.ics` | `Calendar/Checklists/immediate-tasks-checklist.md` | When calendar events change, update relevant tasks. |
+| `Calendar/2025-Plan.ics` | `Calendar/Checklists/short-term-checklist.md` | When milestones change, update checklist accordingly. |
+| `Calendar/Reflections/DIY-Reflection.md` | `ContentVault/context-doc.md` | When reflection insights are significant, update strategy document. |
 
 ## Documentation Consistency Rules
 
-1. **Strategy Updates**: When updating strategy in `ContextDoc.md`:
-   - Update folder structure in `Folder-Structure-Guide.md`
+1. **Strategy Updates**: When updating strategy in `ContentVault/context-doc.md`:
+   - Update folder structure in `folder-structure-guide.md`
    - Update calendar events in `2025-Plan.ics`
-   - Update checklists in `Calendar/Checklists/`
+   - Update checklists in `Calendar/Checklists/immediate-tasks-checklist.md` and `Calendar/Checklists/short-term-checklist.md`
    - Update README.md to reflect current status
 
 2. **Content Management**: When adding/updating content:
-   - Place files in correct folders per `Folder-Structure-Guide.md`
+   - Place files in correct folders per `folder-structure-guide.md`
    - Update relevant research documents if needed
    - Update trackers in `ContentVault/Trackers/`
    - Update calendar if content is time-sensitive
@@ -67,7 +67,7 @@ This document defines the relationships between project files and establishes ru
    - Update checklists to reflect progress
 
 4. **Calendar Management**: When updating calendar:
-   - Ensure events align with strategy in `ContextDoc.md`
+   - Ensure events align with strategy in `ContentVault/context-doc.md`
    - Update relevant checklists
    - Update DIY reflections if needed
    - Update project journey if significant milestones are reached
@@ -88,9 +88,7 @@ For each "yes" answer, identify the related files using this document and update
 ## Documentation Standards
 
 1. **File Naming Conventions**
-   - Use hyphens (-) for Markdown documentation files
-   - Use descriptive, full names instead of abbreviations
-   - Follow consistent casing (Title Case for folders, lowercase for files)
+   - See [../file-naming-conventions.md](../file-naming-conventions.md) for all file and folder naming rules.
 
 2. **Directory Structure**
    - Follow the structure defined in `Folder-Structure-Guide.md`
@@ -109,6 +107,12 @@ For each "yes" answer, identify the related files using this document and update
    - Update all related documents when making changes
    - Maintain bidirectional links between documents
 
+5. **Code Quality Standards**
+   - Use CodeRabbit for AI-powered code reviews as documented in `@docs/coderabbit-integration-guide.md`
+   - Address all issues flagged by CodeRabbit before merging code
+   - Document any exceptions to CodeRabbit recommendations with clear rationale
+   - Use branch-based development for all code changes to enable effective reviews
+
 ## Maintaining This Document
 
 This document should be updated whenever:
@@ -118,5 +122,6 @@ This document should be updated whenever:
 3. New relationships between files are identified
 4. New integrity rules are established
 5. Cursor rules are updated in `@docs/cursor-rules.md`
+6. Code quality standards or tools are modified (e.g., CodeRabbit configuration)
 
 By following these rules, we can ensure that our project remains consistent and well-documented as it evolves.

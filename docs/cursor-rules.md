@@ -6,14 +6,14 @@ When making any changes to the project, always consult and update all related do
 ## Required Documents for Reference
 
 ### 1. Strategy and Structure Documents
-- `@ContentVault/ContextDoc.md`: The central strategy document
-- `@Folder-Structure-Guide.md`: Defines the project's folder structure
+- `@ContentVault/context-doc.md`: The central strategy document
+- `@folder-structure-guide.md`: Defines the project's folder structure
 - `@docs/file-relationship-rules.md`: Defines relationships between files
 
 ### 2. Implementation Documents
 - `@Setup-Instructions.md`: Setup and configuration details
-- `@Calendar/Checklists/Immediate-Tasks.md`: Current implementation tasks
-- `@Calendar/Checklists/ShortTerm-Checklist.md`: Short-term goals and tasks
+- `@Calendar/Checklists/immediate-tasks-checklist.md`: Current implementation tasks
+- `@Calendar/Checklists/short-term-checklist.md`: Short-term goals and tasks
 
 ### 3. Security and Configuration
 - `@Agents/configs/security-standards.md`: Security requirements
@@ -36,7 +36,7 @@ When renaming or moving files:
 When updating content:
 1. Check `@docs/file-relationship-rules.md` for related files
 2. Update any linked content in:
-   - `@ContentVault/ContextDoc.md` (if strategy-related)
+   - `@ContentVault/context-doc.md` (if strategy-related)
    - `@Calendar/2025-Plan.ics` (if timeline-related)
    - Relevant trackers in `@ContentVault/Trackers/`
 
@@ -62,6 +62,7 @@ Before committing changes, verify:
 3. Security standards are maintained
 4. Dependencies are properly listed
 5. Calendar and checklists reflect the changes
+6. Code changes have been reviewed by CodeRabbit (see `@docs/coderabbit-integration-guide.md`)
 
 ## Documentation Standards
 
@@ -95,4 +96,4 @@ This document should be updated whenever:
 1. New documents are added to the project
 2. New relationships between files are established
 3. New synchronization requirements are identified
-4. Project structure changes significantly 
+4. Project structure changes significantly

@@ -2,16 +2,19 @@
 
 This guide describes the folder structure of the pcr repository, detailing the purpose of each folder and specifying where files should be stored. It serves as a reference for organizing content and as context for AI agents to navigate the structure. The pcr repository is the central hub for Jeremiah Agenyi's journey to become a thought leader in AI for nonprofit technology, managing writings, professional artifacts, research, and technical assets.
 
-## Relationship to ContextDoc.md
+## File Naming Conventions
+Refer to [../file-naming-conventions.md](../file-naming-conventions.md) for all file and folder naming standards. Follow these rules for all new files and folders.
 
-This guide complements the strategic vision outlined in `ContextDoc.md`. While `ContextDoc.md` focuses on the overall strategy, goals, and implementation plan, this guide provides the technical framework for organizing content and assets. Together, they ensure both strategic alignment and practical organization of the PCR project.
+## Relationship to context-doc.md
+
+This guide complements the strategic vision outlined in `context-doc.md`. While `context-doc.md` focuses on the overall strategy, goals, and implementation plan, this guide provides the technical framework for organizing content and assets. Together, they ensure both strategic alignment and practical organization of the PCR project.
 
 ## Purpose
 
 The PCR repository serves four main purposes:
 1. **Content Management**: Archive articles, cover letters, screenshots, and research for thought leadership
 2. **Agent Support**: Provide data for AI agents (e.g., Event Scout, Content Crafter) to automate tasks
-3. **Professional Identity Coaching**: Store templates and client materials for Jeremiah's coaching service
+3. **Professional Identity Coaching**: Store templates and client materials for Jeremiah's coaching service (see `ContentVault/professional-identity-coaching/`)
 4. **Tracking and Reflection**: Maintain calendars, checklists, and DIY scalability notes
 
 ## Repository Root
@@ -24,7 +27,7 @@ The root of the pcr repository contains core files that provide an overview and 
 - `README.md`: Overview of the pcr repository, its purpose, and getting started instructions.
 - `Setup-Instructions.md`: Step-by-step guide for setting up the repository, including folder structure and the 12-week plan.
 - `requirements.txt`: Python dependencies for virtual environment (venv).
-- `ContextDoc.md`: Jeremiah's AI strategy document with redacted sections for private reflections (agents ignore redacted:.*).
+- `context-doc.md`: Jeremiah's AI strategy document with redacted sections for private reflections (agents ignore redacted:.*).
 
 ## docs/
 
@@ -73,7 +76,7 @@ The main content hub for documents, writings, and professional artifacts.
 - `Graphics/`: Logos, banners, and other graphic designs.
   - Example Files: `logo-ncdc.png`
 
-##### Professional Identity Coaching/
+##### professional-identity-coaching/
 **Purpose**: Store templates, client plans, and guides for professional identity coaching.
 
 **Subfolders**:
@@ -117,8 +120,8 @@ The main content hub for documents, writings, and professional artifacts.
 **Purpose**: Log data for Portfolio Curator and Content Crafter agents.
 
 **Files**:
-- `WebProjects.xlsx`: URLs of past web projects
-- `SocialMediaMetrics.xlsx`: Engagement and growth metrics for social media
+- `web-projects.xlsx`: URLs of past web projects
+- `social-media-metrics.xlsx`: Engagement and growth metrics for social media
 
 ### pcr/Agents/
 
@@ -169,8 +172,8 @@ Timelines, trackers, and reflection notes.
 **Purpose**: Task checklists for tracking progress.
 
 **Files**:
-- `ShortTerm-Checklist.md`: High-level tracker for 0-3 months
-- `Immediate-Tasks-Checklist.md`: Detailed tasks for Weeks 1-4
+- `short-term-checklist.md`: High-level tracker for 0-3 months
+- `immediate-tasks-checklist.md`: Detailed tasks for Weeks 1-4
 
 ##### Reflections/
 **Purpose**: Notes on DIY scalability and project reflections.
@@ -192,7 +195,7 @@ Timelines, trackers, and reflection notes.
 - Graphic designs go in `ContentVault/Screenshots/Graphics/`
 
 ### Coaching Materials
-- Templates, client plans, and guides go in their respective subfolders under `ContentVault/Professional Identity Coaching/`
+- Templates, client plans, and guides go in their respective subfolders under `ContentVault/professional-identity-coaching/`
 
 ### Research
 - Policy documents go in `ContentVault/Research/Policies/`
@@ -207,5 +210,4 @@ Timelines, trackers, and reflection notes.
 - **Google Drive Mapping**: In Google Drive, the structure is under pcr/ (e.g., pcr/ContentVault/). The n8n sync workflow maps pcr/ in Google Drive to the pcr/ root in GitHub.
 - **Consistency**: Use .md for text files, .xlsx for trackers, and .json for workflows to simplify agent parsing.
 - **AI Context**: Agents can use this guide to navigate the structure (e.g., Portfolio Curator saves screenshots to ContentVault/Screenshots/, Content Crafter saves drafts to ContentVault/Writings/Draft/).
-- **Scalability**: If Professional Identity Coaching grows, consider moving it to a sibling folder (e.g., ProfessionalIdentityCoaching/).
-
+- **Scalability**: If professional-identity-coaching grows, consider moving it to a sibling folder (e.g., professional-identity-coaching/).

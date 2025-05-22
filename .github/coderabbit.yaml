@@ -1,0 +1,94 @@
+# CodeRabbit Configuration for PCR Repository
+
+# Review settings
+reviews:
+  # Include a high-level summary of the changes
+  high_level_summary: true
+  
+  # Add a poem to the review (makes reviews more engaging)
+  poem: true
+  
+  # Add a "Looks Good To Me" comment when no issues are found
+  review_comment_lgtm: true
+  
+  # Collapse detailed walkthroughs by default to keep reviews concise
+  collapse_walkthrough: true
+  
+  # Path filters to include/exclude from reviews
+  path_filters:
+    # Exclude documentation files from code review
+    - "!docs/"
+    - "!*.md"
+    # Include all Python files
+    - "**/*.py"
+    # Include all JavaScript files
+    - "**/*.js"
+    # Include all JSON files
+    - "**/*.json"
+    # Include all YAML files
+    - "**/*.yaml"
+    - "**/*.yml"
+  
+  # Path-specific instructions for different parts of the codebase
+  path_instructions:
+    - path: "Agents/"
+      instructions: "This directory contains agent configurations and workflows. Focus on security, API handling, and error handling. Ensure credentials are properly secured."
+    
+    - path: "Agents/n8n-workflows/"
+      instructions: "These are n8n workflow definitions. Check for proper error handling, secure credential usage, and workflow efficiency."
+    
+    - path: "Agents/configs/"
+      instructions: "Configuration files for agents. Ensure no hardcoded credentials, proper validation, and secure defaults."
+    
+    - path: "venv/"
+      instructions: "Virtual environment files. These should generally not be modified directly."
+
+# PR settings
+prs:
+  # Open AI model to use for PR title and description suggestions
+  # Options: claude-3-opus-20240229, claude-3-sonnet-20240229, claude-3-haiku-20240307
+  open_ai_model: "claude-3-sonnet-20240229"
+  
+  # Whether to update PR descriptions with a summary of changes
+  update_description: true
+  
+  # Whether to suggest improvements to PR titles
+  title_suggestions: true
+  
+  # Labels to apply to PRs based on content
+  labels:
+    # Apply 'security' label when security-related changes are detected
+    security:
+      - "security"
+      - "auth"
+      - "authentication"
+      - "authorization"
+      - "vulnerability"
+      - "encrypt"
+    
+    # Apply 'documentation' label when primarily documentation changes
+    documentation:
+      - "docs"
+      - "documentation"
+      - "readme"
+    
+    # Apply 'bug-fix' label when fixing issues
+    bug-fix:
+      - "fix"
+      - "bugfix"
+      - "bug"
+      - "hotfix"
+    
+    # Apply 'feature' label for new functionality
+    feature:
+      - "feature"
+      - "enhancement"
+      - "implement"
+
+# Chat settings for interactive discussions
+chat:
+  # Enable chat functionality
+  enabled: true
+  
+  # Allow users to ask questions about the codebase
+  allow_queries: true

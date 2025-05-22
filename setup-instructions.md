@@ -25,7 +25,7 @@ JerryAgenyi-Workspace/
 │   ├── Screenshots/               # Visual evidence of work
 │   │   ├── WebProjects/           # Website screenshots
 │   │   └── Graphics/              # Logos, banners
-│   ├── Professional Identity Coaching/
+│   ├── professional-identity-coaching/
 │   │   ├── Templates/             # Coaching templates, life planners
 │   │   ├── ClientMaterials/       # Client-specific plans, CVs
 │   │   └── Guides/                # Coaching process guides
@@ -57,7 +57,7 @@ JerryAgenyi-Workspace/
 ### Notes
 
 - `ContextDoc.md`: Contains your AI strategy with redacted sections for private reflections (agents ignore redacted:.*)
-- `Professional Identity Coaching`: Subfolder for now; may become a standalone folder if the service scales
+- `professional-identity-coaching`: Subfolder for now; may become a standalone folder if the service scales
 - `Agents`: Separates code from content, aligning with GitHub's technical focus
 - `Calendar`: Supports Progress Keeper for tracking and reflection
 
@@ -196,7 +196,7 @@ structure = {
         "ContentVault": {
             "Writings": {"Published": {}, "Drafts": {}, "Archives": {}},
             "Screenshots": {"WebProjects": {}, "Graphics": {}},
-            "Professional Identity Coaching": {"Templates": {}, "ClientMaterials": {}, "Guides": {}},
+            "professional-identity-coaching": {"Templates": {}, "ClientMaterials": {}, "Guides": {}},
             "Research": {"Policies": {}, "NonprofitTech": {}},
             "Trackers": {}
         },

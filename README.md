@@ -1,6 +1,10 @@
 # Personal Context Repository (PCR)
 
 ## Overview
+
+### File Naming Conventions
+For all file and folder naming conventions, see [file-naming-conventions.md](file-naming-conventions.md). All contributors and agents must follow these rules for consistency.
+
 The Personal Context Repository (PCR) is the central content hub for Jeremiah Agenyi's journey to become a thought leader in AI for nonprofit technology. Housed within the pcr GitHub repository and synchronized with Google Drive, it stores writings, professional artifacts, research, and coaching materials. The repository supports Jeremiah's AI strategy, outlined in `ContentVault/ContextDoc.md`, by organizing content and technical assets under the JerryAgenyi-Workspace structure.
 
 ## Purpose
@@ -15,7 +19,7 @@ The Personal Context Repository (PCR) is the central content hub for Jeremiah Ag
 - Store agent configurations and workflows
 - Maintain agent documentation and standards
 
-### Professional Identity Coaching
+### Professional Identity Coaching (see `ContentVault/professional-identity-coaching/`)
 - Store templates and client materials for Jeremiah's coaching service
 - Maintain coaching process guides and resources
 - Track client progress and materials
