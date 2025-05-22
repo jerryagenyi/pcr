@@ -17,10 +17,16 @@ This guide provides detailed instructions for setting up, securing, and configur
    - [Service Management in WSL](#service-management-in-wsl)
    - [Configuring WSL to Start Automatically with Windows](#configuring-wsl-to-start-automatically-with-windows)
    - [Automatic Service Startup Within WSL](#automatic-service-startup-within-wsl)
-   - [Setting Up Llama to Start Automatically](#setting-up-llama-to-start-automatically)
+   - [Setting Up Llama for External Access](#setting-up-llama-for-external-access)
+     - [Exposing Llama API Externally](#exposing-llama-api-externally)
+       - [Our Chosen Solution: Cloudflare Tunnel for Llama API](#our-chosen-solution-cloudflare-tunnel-for-llama-api)
    - [Port Forwarding from Windows to WSL](#port-forwarding-from-windows-to-wsl)
    - [Handling WSL IP Changes](#handling-wsl-ip-changes)
    - [Accessing Your WSL Server](#accessing-your-wsl-server)
+     - [Local Access](#local-access)
+     - [Setting Up Remote Access from Anywhere](#setting-up-remote-access-from-anywhere)
+       - [Our Chosen Solution: Cloudflare Tunnel](#our-chosen-solution-cloudflare-tunnel-for-always-on-access)
+       - [Alternative Options](#alternative-options)
    - [Troubleshooting Common WSL Issues](#troubleshooting-common-wsl-issues)
    - [Accessing WSL from Different IDEs](#accessing-wsl-from-different-ides)
 10. [Advanced: Containerization with Docker](#10-advanced-containerization-with-docker) - [↑](#table-of-contents)
@@ -60,6 +66,11 @@ sudo timedatectl set-timezone America/New_York
 [↑ Return to Top](#table-of-contents)
 
 ## 2. User Management and SSH Security
+   - [Create a New Admin User](#create-a-new-admin-user)
+   - [SSH Configuration](#ssh-configuration)
+     - [Step 1: Initial SSH Security Configuration](#step-1-initial-ssh-security-configuration)
+     - [Step 2: Set Up SSH Keys](#step-2-set-up-ssh-keys-from-your-local-machine)
+     - [Step 3: Disable Password Authentication](#step-3-disable-password-authentication-final-security-step)
 
 ### Create a New Admin User
 
@@ -87,14 +98,16 @@ su - newadmin
 
 ### SSH Configuration
 
-Securing SSH is essential as it's often a primary target for attackers. Each security measure addresses specific vulnerabilities:
+Securing SSH is essential as it's often a primary target for attackers. This process should be done in a specific sequence to avoid locking yourself out of the server.
+
+#### Step 1: Initial SSH Security Configuration
 
 ```bash
 # Open the SSH server configuration file for editing
 sudo nano /etc/ssh/sshd_config
 ```
 
-Make these security-focused changes and understand their purpose:
+Make these initial security changes and understand their purpose:
 
 - **Change default port**: `Port 2222`
   - *Why*: Reduces automated attacks targeting the default SSH port (22)
@@ -102,19 +115,20 @@ Make these security-focused changes and understand their purpose:
 
 - **Disable root login**: `PermitRootLogin no`
   - *Why*: Prevents direct root access, forcing attackers to compromise a regular account first
-  - *Note*: Critical security measure that should always be implemented
+  - *Note*: If you see `PermitRootLogin prohibit-password`, change it to `no` for better security
 
-- **Limit user login**: `AllowUsers newadmin`
+- **Limit user login**: `AllowUsers yourusername`
   - *Why*: Explicitly specifies which users can connect via SSH, blocking all others
-  - *Note*: Replace 'newadmin' with your admin username
-
-- **Disable password authentication**: `PasswordAuthentication no`
-  - *Why*: Prevents brute force password attacks entirely
-  - *Note*: Only enable after setting up SSH key authentication
+  - *Note*: Replace 'yourusername' with your actual username
+  - *Note*: Add this line if it doesn't exist, typically after the PermitRootLogin line
 
 - **Enable key authentication**: `PubkeyAuthentication yes`
   - *Why*: SSH keys are significantly more secure than passwords
-  - *Note*: Must be set up before disabling password authentication
+  - *Note*: This must be enabled before proceeding to key setup
+
+- **Keep password authentication enabled for now**: `PasswordAuthentication yes`
+  - *Why*: Ensures you don't lock yourself out before setting up SSH keys
+  - *Note*: We'll disable this in Step 3 after confirming key authentication works
 
 - **Set login grace time**: `LoginGraceTime 30`
   - *Why*: Limits how long the SSH server waits for authentication, reducing DoS vulnerability
@@ -125,12 +139,13 @@ Make these security-focused changes and understand their purpose:
   - *Note*: Legitimate users rarely need more than 2-3 attempts
 
 ```bash
-# Apply the configuration changes by restarting the SSH service
-# Note: Keep your current SSH session open until you verify the new configuration works
-sudo systemctl restart sshd
+# Apply the initial configuration changes
+sudo service ssh restart
+# or if using systemd:
+# sudo systemctl restart sshd
 ```
 
-### Set Up SSH Keys (from your local machine)
+#### Step 2: Set Up SSH Keys (from your local machine)
 
 SSH key authentication is vastly more secure than passwords because:
 - Keys are significantly longer and more complex than typical passwords
@@ -138,27 +153,74 @@ SSH key authentication is vastly more secure than passwords because:
 - Each service/device can have a unique key for better access control
 - Compromised servers can't steal authentication credentials
 
+##### Option A: Setting Up SSH Keys on the Same WSL Instance
+
+If you're setting up SSH on the same WSL instance you're working in:
+
 ```bash
-# Generate a new SSH key pair on your local Windows/Mac/Linux machine
-# The -t flag specifies the key type (Ed25519 is modern, secure, and recommended)
-# The -C flag adds a comment (usually email) to identify the key's purpose/owner
+# Generate a new SSH key pair
 ssh-keygen -t ed25519 -C "jerryagenyi@gmail.com"
 
 # You'll be prompted to:
 # 1. Specify where to save the key (accept default or specify custom location)
 # 2. Enter a passphrase (highly recommended for additional security)
 
+# If you need to access the key content from Windows:
+cat ~/.ssh/id_ed25519.pub > /mnt/c/Users/Username/Desktop/my_ssh_key.pub
+
+# Set up the authorized_keys file directly (no need for ssh-copy-id)
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+
+# Test SSH connection locally
+ssh -p 2222 yourusername@localhost
+```
+
+##### Option B: Setting Up SSH Keys from Another Machine
+
+If you're setting up SSH keys on a different machine to access your WSL server:
+
+```bash
+# On your client machine, generate a new SSH key pair
+ssh-keygen -t ed25519 -C "jerryagenyi@gmail.com"
+
 # Copy your public key to the server
-# Replace 'newadmin' with your admin username
-# Replace 'your_server_ip' with your server's IP address
+# Replace 'yourusername' with your admin username
+# Replace 'your_server_ip' with your server's IP address or hostname
 # The -p flag specifies the custom SSH port you configured
-ssh-copy-id -i ~/.ssh/id_ed25519.pub newadmin@your_server_ip -p 2222
+ssh-copy-id -i ~/.ssh/id_ed25519.pub yourusername@your_server_ip -p 2222
 
 # If ssh-copy-id isn't available (e.g., on Windows), you can manually:
 # 1. Display your public key: cat ~/.ssh/id_ed25519.pub
 # 2. Copy the output
 # 3. On the server: mkdir -p ~/.ssh && nano ~/.ssh/authorized_keys
 # 4. Paste your key and save
+
+# IMPORTANT: Test key-based login in a new terminal window BEFORE proceeding to Step 3
+# This ensures you don't lock yourself out
+ssh -p 2222 yourusername@your_server_ip
+```
+
+#### Step 3: Disable Password Authentication (Final Security Step)
+
+Only proceed with this step after confirming that key-based authentication is working properly.
+
+```bash
+# Edit SSH config again
+sudo nano /etc/ssh/sshd_config
+
+# Find the PasswordAuthentication line and change it to:
+PasswordAuthentication no
+
+# Apply the final configuration
+sudo service ssh restart
+# or if using systemd:
+# sudo systemctl restart sshd
+
+# Test that you can still log in with your SSH key
+# If you can't log in, you may need to revert this change
 ```
 
 [↑ Return to Top](#table-of-contents)
@@ -748,9 +810,36 @@ echo "  sudo /etc/wsl-init.sh" >> ~/.bashrc
 echo "fi" >> ~/.bashrc
 ```
 
-### Setting Up Llama to Start Automatically
+### Setting Up Llama for External Access
 
-For Llama or other ML services, create a dedicated startup script:
+Llama is a powerful language model that can be run locally. To make it accessible from external applications:
+
+#### 1. Install Llama
+
+First, install Llama and its dependencies:
+
+```bash
+# Install build dependencies
+sudo apt update
+sudo apt install -y build-essential cmake git python3-dev python3-pip
+
+# Clone the llama.cpp repository
+git clone https://github.com/ggerganov/llama.cpp.git
+cd llama.cpp
+
+# Build the project
+make
+
+# Download a model (example: Llama 2 7B quantized)
+# Note: You may need to accept terms on the Hugging Face website first
+mkdir -p models
+python3 -m pip install -U huggingface_hub
+python3 scripts/download-model.py TheBloke/Llama-2-7B-GGUF
+```
+
+#### 2. Create a Startup Script for Llama
+
+Create a dedicated startup script that configures Llama to accept external connections:
 
 ```bash
 # Create a Llama startup script
@@ -760,10 +849,20 @@ sudo nano /usr/local/bin/start-llama.sh
 Add this content (adjust paths and parameters as needed):
 ```bash
 #!/bin/bash
-# Start Llama service
-cd /path/to/llama
-./llama -m models/llama-7b.gguf -c 4096 --host 0.0.0.0 --port 8080 &
-echo "Llama started on port 8080"
+# Start Llama service with external access configuration
+
+# Navigate to Llama directory
+cd /home/yourusername/llama.cpp
+
+# Start the server with these important flags:
+# --host 0.0.0.0     : Accept connections from any IP (not just localhost)
+# --port 8080        : The port to listen on
+# -m <model>         : Path to the model file
+# -c 4096            : Context size
+# --api-key "sk-..." : Optional API key for authentication
+./server -m models/llama-2-7b.Q4_K_M.gguf -c 4096 --host 0.0.0.0 --port 8080 &
+
+echo "Llama started on port 8080 and accessible from external networks"
 ```
 
 Make it executable:
@@ -771,12 +870,97 @@ Make it executable:
 sudo chmod +x /usr/local/bin/start-llama.sh
 ```
 
-Add to the WSL init script:
+#### 3. Configure Llama to Start Automatically
+
+Add Llama to your WSL startup script:
+
 ```bash
 sudo nano /etc/wsl-init.sh
 # Add this line at the end:
 /usr/local/bin/start-llama.sh
 ```
+
+#### 4. Secure Your Llama API (Recommended)
+
+For production use, add authentication to your Llama API:
+
+```bash
+# Generate a secure API key
+API_KEY=$(openssl rand -hex 16)
+echo "Your Llama API key is: $API_KEY"
+
+# Edit your start script to include the API key
+sudo nano /usr/local/bin/start-llama.sh
+# Add --api-key "$API_KEY" to the server command
+```
+
+#### 5. Exposing Llama API Externally
+
+##### Our Chosen Solution: Cloudflare Tunnel for Llama API
+
+We are using Cloudflare Tunnel to expose our Llama API externally, as it provides secure, always-on access without requiring router configuration:
+
+To expose your Llama API securely through Cloudflare Tunnel:
+
+1. **Update your Cloudflare Tunnel configuration**:
+
+```bash
+nano ~/.cloudflared/config.yml
+```
+
+Add Llama API to your ingress rules:
+
+```yaml
+tunnel: YOUR_TUNNEL_ID
+credentials-file: /home/yourusername/.cloudflared/YOUR_TUNNEL_ID.json
+
+ingress:
+  # SSH access
+  - hostname: ssh.yourdomain.com
+    service: ssh://localhost:1982
+
+  # Llama API access
+  - hostname: llama.yourdomain.com
+    service: http://localhost:8080
+
+  # Catch-all rule
+  - service: http_status:404
+```
+
+2. **Add DNS record for Llama API**:
+
+```bash
+cloudflared tunnel route dns wsl-tunnel llama.yourdomain.com
+```
+
+3. **Restart Cloudflare Tunnel**:
+
+```bash
+sudo systemctl restart cloudflared
+```
+
+4. **Test your Llama API through Cloudflare**:
+
+```bash
+# From any device, anywhere
+curl -X POST https://llama.yourdomain.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "llama-2-7b",
+    "messages": [{"role": "user", "content": "Hello, how are you?"}],
+    "temperature": 0.7
+  }'
+```
+
+5. **Add Authentication (Optional but Recommended)**:
+
+You can add Cloudflare Access to require authentication before reaching your Llama API:
+
+- In Cloudflare Dashboard, go to Zero Trust → Access → Applications
+- Create a new application for `llama.yourdomain.com`
+- Set up authentication methods (Google, GitHub, email one-time codes, etc.)
+- This adds an additional security layer beyond your API key
 
 ### Port Forwarding from Windows to WSL
 To make your WSL services accessible from outside your computer:
@@ -848,9 +1032,245 @@ echo "fi" >> ~/.bashrc
 ```
 
 ### Accessing Your WSL Server
+
+#### Local Access
 - From your Windows machine: http://localhost/
 - From other devices on your network: http://your-windows-ip/
-- From the internet (with proper port forwarding on your router): http://your-public-ip/
+
+#### Setting Up Remote Access from Anywhere
+
+To make your WSL server accessible from external networks (for SSH, web services, or Llama API):
+
+##### 1. Configure Port Forwarding on Windows Host
+
+This forwards traffic from Windows to your WSL instance. These commands **MUST** be run in an Administrator PowerShell:
+
+```powershell
+# IMPORTANT: You must run PowerShell as Administrator for these commands
+# Right-click on PowerShell and select "Run as administrator"
+
+# First, get your WSL IP address
+# If you're in WSL bash shell, exit first by typing 'exit'
+$wslIP = wsl -d Ubuntu-24.04 -e bash -c "ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
+Write-Host "Your WSL IP is: $wslIP"
+
+# If the above command doesn't work, you can manually find your WSL IP by running this in WSL:
+# ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+# Then use that IP address in the commands below
+
+# Set up port forwarding for SSH (adjust port if you changed the default)
+# Replace 2222 with your actual SSH port (e.g., 1982)
+netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=2222 connectaddress=$wslIP connectport=2222
+
+# Set up port forwarding for HTTP (port 80)
+netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=80 connectaddress=$wslIP connectport=80
+
+# Set up port forwarding for HTTPS (port 443)
+netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=443 connectaddress=$wslIP connectport=443
+
+# Set up port forwarding for Llama API (adjust port as needed)
+netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=8080 connectaddress=$wslIP connectport=8080
+
+# Allow these ports through Windows Firewall
+# These commands also require Administrator privileges
+New-NetFirewallRule -DisplayName "WSL-SSH" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 2222
+New-NetFirewallRule -DisplayName "WSL-HTTP" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 80
+New-NetFirewallRule -DisplayName "WSL-HTTPS" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 443
+New-NetFirewallRule -DisplayName "WSL-Llama" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 8080
+
+# View all port forwarding rules
+netsh interface portproxy show all
+```
+
+##### Alternative: Create a PowerShell Script for Port Forwarding
+
+If you prefer, you can create a script and run it as administrator:
+
+1. Create a file named `setup-wsl-forwarding.ps1` with this content:
+```powershell
+# Get WSL IP
+$wslIP = wsl -d Ubuntu-24.04 -e bash -c "ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
+Write-Host "WSL IP: $wslIP"
+
+# Set up port forwarding (adjust ports as needed)
+netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=1982 connectaddress=$wslIP connectport=1982
+netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=80 connectaddress=$wslIP connectport=80
+netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=443 connectaddress=$wslIP connectport=443
+netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=8080 connectaddress=$wslIP connectport=8080
+
+# Add firewall rules
+New-NetFirewallRule -DisplayName "WSL-SSH" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 1982
+New-NetFirewallRule -DisplayName "WSL-HTTP" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 80
+New-NetFirewallRule -DisplayName "WSL-HTTPS" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 443
+New-NetFirewallRule -DisplayName "WSL-Llama" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 8080
+
+Write-Host "Port forwarding and firewall rules set up successfully"
+```
+
+2. Right-click the file and select "Run with PowerShell as Administrator"
+
+##### 2. Set Up Dynamic DNS (for Changing Home IP)
+
+Most home internet connections have dynamic IP addresses that change periodically. To maintain consistent access:
+
+1. Sign up for a free dynamic DNS service:
+   - [No-IP](https://www.noip.com/)
+   - [DuckDNS](https://www.duckdns.org/)
+   - [Dynu](https://www.dynu.com/)
+
+2. Install their update client on your Windows machine
+   - This will keep your domain (e.g., `yourname.ddns.net`) pointing to your current IP
+
+3. Configure the update client to run at startup
+
+##### 3. External Access Options
+
+###### Our Chosen Solution: Cloudflare Tunnel for Always-On Access
+
+We are using **Cloudflare Tunnel** for our setup because it provides secure, always-on remote access without requiring router configuration, which is ideal for shared housing environments.
+
+**Prerequisites**:
+- A domain name (can be a free subdomain from Freenom if needed)
+- A free Cloudflare account with your domain added
+
+**Setup Steps**:
+```bash
+# Install cloudflared in WSL
+curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+sudo dpkg -i cloudflared.deb
+sudo apt-get install -f
+
+# Log in to Cloudflare (this will open a browser)
+cloudflared tunnel login
+
+# Create a tunnel (replace 'wsl-tunnel' with your preferred name)
+cloudflared tunnel create wsl-tunnel
+
+# Configure your tunnel (create a config file)
+mkdir -p ~/.cloudflared
+nano ~/.cloudflared/config.yml
+```
+
+Add this to the config file:
+```yaml
+tunnel: YOUR_TUNNEL_ID  # ID from the create command output
+credentials-file: /home/yourusername/.cloudflared/YOUR_TUNNEL_ID.json
+
+# For SSH access
+ingress:
+  - hostname: ssh.yourdomain.com
+    service: ssh://localhost:1982
+  - service: http_status:404
+```
+
+Create a systemd service to run the tunnel automatically:
+```bash
+sudo nano /etc/systemd/system/cloudflared.service
+```
+
+Add this content:
+```ini
+[Unit]
+Description=Cloudflare Tunnel
+After=network.target
+
+[Service]
+Type=simple
+User=yourusername
+ExecStart=/usr/bin/cloudflared tunnel run wsl-tunnel
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start the service:
+```bash
+sudo systemctl enable cloudflared
+sudo systemctl start cloudflared
+```
+
+Add DNS record in Cloudflare dashboard:
+```bash
+# Get the command to add DNS records
+cloudflared tunnel route dns wsl-tunnel ssh.yourdomain.com
+```
+
+**Accessing Your WSL Server**:
+```bash
+# SSH from anywhere
+ssh -p 22 yourusername@ssh.yourdomain.com
+```
+
+**Security Benefits**:
+- No open ports on your router
+- End-to-end encryption
+- DDoS protection
+- Optional Zero Trust access controls
+
+###### Alternative Options
+
+If Cloudflare Tunnel doesn't meet your needs, here are other options:
+
+**Option A: Router Port Forwarding** (If You Have Router Access)
+1. Log into your router's admin panel (typically 192.168.1.1 or 192.168.0.1)
+2. Find "Port Forwarding" or "Virtual Server" settings
+3. Add rules to forward these ports to your Windows PC's internal IP:
+   - External port 2222 → Internal port 2222 (SSH)
+   - External port 80 → Internal port 80 (HTTP)
+   - External port 443 → Internal port 443 (HTTPS)
+   - External port 8080 → Internal port 8080 (Llama API)
+
+**Option B: Reverse SSH Tunnels** (No Router Access Required)
+```bash
+# If you have a public server (VPS, etc.)
+ssh -R 2222:localhost:1982 username@your-public-server.com
+
+# Free tunneling services:
+ssh -R 80:localhost:1982 serveo.net
+# or
+ssh -R 80:localhost:1982 localhost.run
+```
+
+**Option C: VPN Services** (No Router Access Required)
+- **Tailscale**: [https://tailscale.com/](https://tailscale.com/)
+- **ZeroTier**: [https://www.zerotier.com/](https://www.zerotier.com/)
+
+**Option D: Other Cloud Tunneling Services** (No Router Access Required)
+- **ngrok**: [https://ngrok.com/](https://ngrok.com/)
+
+##### 4. Accessing Your Services Remotely
+
+Once set up, you can access your services from anywhere:
+
+```bash
+# With router port forwarding + dynamic DNS
+ssh -p 2222 yourusername@yourname.ddns.net
+
+# With ngrok (use the address provided by ngrok)
+ssh -p 12345 yourusername@0.tcp.ngrok.io
+
+# With Tailscale (use the tailscale IP)
+ssh -p 1982 yourusername@your-machine-tailscale-ip
+
+# Web access (with router port forwarding)
+http://yourname.ddns.net
+https://yourname.ddns.net
+
+# Llama API access (with router port forwarding)
+http://yourname.ddns.net:8080
+```
+
+##### 5. Security Considerations for Remote Access
+
+When exposing services to the internet:
+
+1. **Keep everything updated**: `sudo apt update && sudo apt upgrade -y`
+2. **Use strong SSH configuration**: Follow all SSH hardening steps in this guide
+3. **Consider a VPN**: For more sensitive services, use a VPN instead of direct exposure
+4. **Set up fail2ban**: `sudo apt install fail2ban` to block brute force attempts
+5. **Monitor logs regularly**: Check `/var/log/auth.log` for suspicious activity
 
 ### Troubleshooting Common WSL Issues
 
