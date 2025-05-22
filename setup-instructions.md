@@ -121,6 +121,7 @@ Follow this plan to setup infrastructure, build initial agents, and achieve earl
    - Create/test n8n workflow for Google Drive-GitHub sync
    - Save to `Agents/n8n-workflows/sync-gdrive-github.json`
    - Schedule daily sync
+   - Follow the `ubuntu-server-complete-guide.md` for detailed server setup instructions
 
 ### Week 3-4: Populate Calendar and Trackers
 
@@ -223,4 +224,21 @@ create_structure(".", structure)
 - **Cost Optimization**: Batch Claude AI tasks, cache outputs, test free tiers
 - **KISS Principle**: Start with n8n for sync and agents, manual tracking initially
 - **DIY Reflection**: Balance scalability with DIY ethos, logged monthly
+- **Server Setup**: Refer to `ubuntu-server-complete-guide.md` for comprehensive instructions on setting up Ubuntu server with Docker, Nginx, Supabase, and N8N for agentic workflows
+
+## 7. Server Infrastructure
+
+For detailed instructions on setting up the server infrastructure for this project, refer to the comprehensive guide in `ubuntu-server-complete-guide.md`. This guide covers:
+
+1. **Basic Ubuntu Server Setup**: Initial system configuration, user management, firewall setup, and system hardening
+2. **Web Server Configuration**: Nginx installation and configuration with Cloudflare integration
+3. **Containerization**: Docker and Docker Compose setup for service management
+4. **Database Management**: Supabase installation for robust database needs
+5. **N8N Configuration**: Containerized N8N setup with proper database integration
+6. **Security Hardening**: Advanced security measures including secrets management and WAF
+7. **Observability**: Monitoring stack with Prometheus, Grafana, and ELK
+8. **High Availability**: Load balancing and disaster recovery for production environments
+9. **WSL-Specific Considerations**: Special instructions for Windows Subsystem for Linux users
+
+The guide is designed to be followed step-by-step, with each section building on the previous one. It includes both basic setup for getting started quickly and advanced configurations for production-grade deployments.
 
