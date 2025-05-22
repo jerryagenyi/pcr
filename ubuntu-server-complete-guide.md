@@ -751,7 +751,21 @@ If you're having issues with WSL installation through VSCode's terminal or other
 
 By default, WSL doesn't start automatically when Windows boots. To configure automatic startup:
 
-1. **Create a Windows Startup Script**:
+1. **Recommended Method: Create a Windows Task Scheduler Task**:
+   - Press `Win + R`, type `taskschd.msc` and press Enter
+   - Click "Create Basic Task" in the right panel
+   - Name it "Start WSL" and click Next
+   - Select "When I log on" and click Next
+   - Select "Start a program" and click Next
+   - In Program/script, enter: `powershell.exe`
+   - In Arguments, enter: `-ExecutionPolicy Bypass -Command "wsl -d Ubuntu-24.04 -u root service ssh start"`
+   - Click Next, then Finish
+   - For additional options, right-click the task and select Properties:
+     - Check "Run with highest privileges"
+     - Under Settings tab, check "Allow task to be run on demand"
+     - Click OK to save changes
+
+2. **Alternative Method: Create a Windows Startup Script**:
    - Create a new PowerShell script in your Windows startup folder:
    - Press `Win + R`, type `shell:startup` and press Enter
    - Right-click in the folder, select New > Text Document
@@ -759,20 +773,11 @@ By default, WSL doesn't start automatically when Windows boots. To configure aut
    - Edit the file and add:
      ```powershell
      # Start WSL
-     wsl -d Ubuntu -u root service ssh start
+     wsl -d Ubuntu-24.04 -u root service ssh start
      # Optional: Start specific distribution if you have multiple
-     # wsl -d Ubuntu
+     # wsl -d Ubuntu-24.04
      ```
-
-2. **Create a Windows Task Scheduler Task** (more reliable method):
-   - Press `Win + R`, type `taskschd.msc` and press Enter
-   - Click "Create Basic Task" in the right panel
-   - Name it "Start WSL" and click Next
-   - Select "When I log on" and click Next
-   - Select "Start a program" and click Next
-   - In Program/script, enter: `powershell.exe`
-   - In Arguments, enter: `-ExecutionPolicy Bypass -File "C:\path\to\your\start-wsl.ps1"`
-   - Click Next, then Finish
+   - Note: This method is less reliable as it may not run with proper privileges
 
 ### Automatic Service Startup Within WSL
 
