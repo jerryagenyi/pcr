@@ -13,6 +13,7 @@ This document defines the relationships between project files and establishes ru
 | `ContentVault/context-doc.md` | `Calendar/Checklists/immediate-tasks-checklist.md` | When strategy changes, ensure tasks reflect new priorities. |
 | `ContentVault/context-doc.md` | `Calendar/Checklists/short-term-checklist.md` | When strategy changes, ensure short-term goals are updated. |
 | `folder-structure-guide.md` | `README.md` | When folder structure changes, update README to reflect new organization. |
+| `ubuntu-server-complete-guide.md` | `Calendar/Checklists/server-setup-checklist.md` | When server setup instructions change, update the checklist to reflect new steps. |
 
 ### Agent Configuration
 

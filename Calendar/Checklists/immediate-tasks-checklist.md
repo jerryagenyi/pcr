@@ -9,6 +9,13 @@ This checklist breaks down the first 4 weeks of the 12-week Short-Term plan (Pha
 - [ ] Apply brand guidelines to your draft blog post and other existing content
 - [ ] Schedule quarterly brand reviews to maintain consistency and evolve the brand as needed
 - [ ] Review and publish blog post "AI: More Than Just Code – Why Everyone Needs a Reality Check"
+- [x] Set up WSL Ubuntu server environment for development and hosting
+  - [x] Install and configure WSL with Ubuntu-24.04
+  - [x] Set up SSH server with security hardening
+  - [x] Configure port forwarding and firewall rules
+  - [x] Test local SSH access
+  - [ ] Set up Cloudflare Tunnel for remote access
+  - [ ] Install and configure Llama for AI capabilities
 
 ## Week 1: Core Repository and Environment Setup
 
